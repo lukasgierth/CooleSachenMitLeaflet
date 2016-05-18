@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">CooleSachenMitLeaflet</string>
+    <string name="action_settings">Toggle WMS</string>
+</resources>

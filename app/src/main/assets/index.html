@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
+    <script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
+    <style>
+        body {
+        padding: 0;
+        margin: 0;
+        }
+        html, body, #map {
+        height: 100%;
+        }
+    </style>
+</head>
+
+
+<body>
+<div id="map"></div>
+
+
+<script>
+var osmAttr = '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>';
+var map = L.map('map').setView([51.4818, 7.2162], 14);
+
+var baseLayer = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution: osmAttr}).addTo(map);
+
+var bplan = L.tileLayer.wms("http://geodaten.metropoleruhr.de/inspire/bodennutzung/bochum?language=ger&", {
+    layers: 'bplan',
+    format: 'image/png',
+    transparent: true,
+    attribution: "Stadt Bochum"
+});
+
+var marker = L.marker([51.4818, 7.2162]).addTo(map);
+marker.bindPopup("Hallo Bochum");
+
+function callFromActivity(latIntent, lonIntent){
+    map.setView([parseFloat(latIntent), parseFloat(lonIntent)], 14);
+}
+
+window.toggle = true;
+function toggleLayer() {
+  if(!toggle) {
+    map.removeLayer(bplan);
+  } else {
+    map.addLayer(bplan);
+  }
+  toggle = !toggle;
+}
+
+</script>
+</body>
+
+</html>
