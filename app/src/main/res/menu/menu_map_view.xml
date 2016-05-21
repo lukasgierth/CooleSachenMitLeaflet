@@ -12,4 +12,9 @@
         android:orderInCategory="101"
         android:title="@string/bplanwms"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/histlanduse"
+        android:orderInCategory="102"
+        android:title="@string/histlanduse"
+        app:showAsAction="never" />
 </menu>

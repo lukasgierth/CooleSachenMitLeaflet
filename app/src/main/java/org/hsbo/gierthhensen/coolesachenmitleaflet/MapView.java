@@ -144,10 +144,19 @@ public class MapView extends AppCompatActivity implements LocationListener {
         if (id == R.id.bplanwms) {
 
             WebView webView = (WebView) findViewById(R.id.webview);
-            webView.loadUrl("javascript:toggleWMS();");
+            webView.loadUrl("javascript:toggleWMS1();");
 
             return true;
         }
+
+        if (id == R.id.histlanduse) {
+
+            WebView webView = (WebView) findViewById(R.id.webview);
+            webView.loadUrl("javascript:toggleWMS2();");
+
+            return true;
+        }
+
         if (id == R.id.osmbase) {
 
             WebView webView = (WebView) findViewById(R.id.webview);
