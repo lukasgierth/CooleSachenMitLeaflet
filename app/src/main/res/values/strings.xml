@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">CooleSachenMitLeaflet</string>
-    <string name="action_settings">Toggle WMS</string>
+    <string name="bplanwms">BPLAN Bochum</string>
+    <string name="osmbase">OSM Base Map</string>
 </resources>

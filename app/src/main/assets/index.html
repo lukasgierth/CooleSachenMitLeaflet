@@ -19,13 +19,19 @@
 <body>
 <div id="map"></div>
 
-
 <script>
+// set osm recognition
 var osmAttr = '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>';
-var map = L.map('map').setView([51.4818, 7.2162], 14);
 
-var baseLayer = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution: osmAttr}).addTo(map);
+// init map elemtn
+var map = L.map('map').setView([51.505, -0.09], 14);
 
+// Add base layer
+var baseLayer = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
+    attribution: osmAttr
+}).addTo(map);
+
+// Add WMS
 var bplan = L.tileLayer.wms("http://geodaten.metropoleruhr.de/inspire/bodennutzung/bochum?language=ger&", {
     layers: 'bplan',
     format: 'image/png',
@@ -33,23 +39,47 @@ var bplan = L.tileLayer.wms("http://geodaten.metropoleruhr.de/inspire/bodennutzu
     attribution: "Stadt Bochum"
 });
 
-var marker = L.marker([51.4818, 7.2162]).addTo(map);
-marker.bindPopup("Hallo Bochum");
+var marker = L.marker([51.505, -0.09]).addTo(map);
+marker.on('click', onMarkerClick);
 
-function callFromActivity(latIntent, lonIntent){
+// Change view to coordinates
+function toCity(latIntent, lonIntent, cityName){
     map.setView([parseFloat(latIntent), parseFloat(lonIntent)], 14);
+    marker.setLatLng([parseFloat(latIntent), parseFloat(lonIntent)]);
+
 }
 
-window.toggle = true;
-function toggleLayer() {
-  if(!toggle) {
-    map.removeLayer(bplan);
-  } else {
+toggle1 = true;
+toggle2 = true;
+
+// Toggle bplan WMS
+function toggleWMS() {
+  if(toggle1) {
     map.addLayer(bplan);
+  } else {
+    map.removeLayer(bplan);
   }
-  toggle = !toggle;
+  toggle1 = !toggle1;
 }
 
+// Toggle Base OSM Layer
+function toggleBase() {
+  if(!toggle2) {
+    map.addLayer(baseLayer);
+    if(map.hasLayer(bplan) == true){
+        map.removeLayer(bplan);
+        map.addLayer(bplan);
+    }
+  } else {
+    map.removeLayer(baseLayer);
+  }
+  toggle2 = !toggle2;
+}
+
+// Call Toast in App
+function onMarkerClick() {
+    Android.cityToast();
+}
 </script>
 </body>
 

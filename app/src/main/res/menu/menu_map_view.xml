@@ -3,8 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="org.hsbo.gierthhensen.coolesachenmitleaflet.MapView">
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/osmbase"
         android:orderInCategory="100"
-        android:title="@string/action_settings"
+        android:title="@string/osmbase"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/bplanwms"
+        android:orderInCategory="101"
+        android:title="@string/bplanwms"
         app:showAsAction="never" />
 </menu>
