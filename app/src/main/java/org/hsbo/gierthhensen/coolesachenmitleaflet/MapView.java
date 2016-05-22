@@ -106,23 +106,18 @@ public class MapView extends AppCompatActivity implements LocationListener {
 
             WebView webView = (WebView) findViewById(R.id.webview);
             webView.loadUrl("javascript:toggleWMS1();");
-
             return true;
         }
 
         if (id == R.id.histlanduse) {
-
             WebView webView = (WebView) findViewById(R.id.webview);
             webView.loadUrl("javascript:toggleWMS2();");
-
             return true;
         }
 
         if (id == R.id.osmbase) {
-
             WebView webView = (WebView) findViewById(R.id.webview);
             webView.loadUrl("javascript:toggleBase();");
-
             return true;
         }
 
@@ -154,17 +149,12 @@ public class JSInterface {
         else if (city.equals("Bochum")){
             Toast.makeText(context, "Bochum", Toast.LENGTH_SHORT).show();
         }
-
     }
 
     @JavascriptInterface
     public void positionToast(String toast){
-
             Toast.makeText(context, toast, Toast.LENGTH_SHORT).show();
-
     }
-
-
 }
 
     @Override
