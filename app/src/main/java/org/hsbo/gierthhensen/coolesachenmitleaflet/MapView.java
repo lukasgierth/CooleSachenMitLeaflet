@@ -1,18 +1,14 @@
 package org.hsbo.gierthhensen.coolesachenmitleaflet;
 
-import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
-import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -27,7 +23,6 @@ import android.widget.Toast;
 @SuppressLint({"SetJavaScriptEnabled", "ShowToast"})
 public class MapView extends AppCompatActivity implements LocationListener {
 
-    public LocationManager locman;
     public String city = "London";
 
     /**
@@ -91,40 +86,6 @@ public class MapView extends AppCompatActivity implements LocationListener {
         WebView webView = (WebView) findViewById(R.id.webview);
         webView.loadUrl("javascript:toCity(" + lat + "," + lon+ "," + "'" +cityName+ "'" +");");
     }
-
-    /**
-     * Momentan nicht genutzt, noch fehlerhaft
-     */
-
-    /*
-    public void getPosition() {
-        String lat, lon;
-        LocationManager locMan = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        locMan.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, this);
-
-        boolean isNW = locMan.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
-
-        if (!isNW) {
-
-        } else {
-            Location loc;
-
-            try {
-                if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                    return;
-                }
-                loc = locMan.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-                lat = Double.toString(loc.getLatitude());
-                lon = Double.toString(loc.getLongitude());
-                String coords = (lon + "," + lat);
-
-               // setLocationOnMap(coords);
-            } catch (Exception e){
-
-            }
-        }
-    }
-    */
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -193,6 +154,13 @@ public class JSInterface {
         else if (city.equals("Bochum")){
             Toast.makeText(context, "Bochum", Toast.LENGTH_SHORT).show();
         }
+
+    }
+
+    @JavascriptInterface
+    public void positionToast(String toast){
+
+            Toast.makeText(context, toast, Toast.LENGTH_SHORT).show();
 
     }
 

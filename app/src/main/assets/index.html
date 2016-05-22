@@ -23,13 +23,14 @@
 // set osm recognition
 var osmAttr = '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>';
 
-// init map elemtn
+// init map element
 var map = L.map('map').setView([51.505, -0.09], 14);
 
 // Add base layer
 var baseLayer = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
     attribution: osmAttr
 }).addTo(map);
+
 
 // Add WMS bplan bochum
 var bplan = L.tileLayer.wms("http://geodaten.metropoleruhr.de/inspire/bodennutzung/bochum?language=ger&", {
@@ -47,18 +48,34 @@ var histlanduse = L.tileLayer.wms("http://www.mapping2.cityoflondon.gov.uk/arcgi
     attribution: "City Of London"
 });
 
+// circle
+L.circle([51.508, -0.11], 500, {
+		color: 'green',
+		fillColor: '#f03',
+		fillOpacity: 0.5
+}).addTo(map).bindPopup("Kreis");
+
+// polygon
+L.polygon([
+		[51.509, -0.08],
+		[51.503, -0.06],
+		[51.51, -0.047]
+]).addTo(map).bindPopup("Polygon");
+
 var marker = L.marker([51.505, -0.09]).addTo(map);
+
 marker.on('click', onMarkerClick);
+map.on('click', onMapClick);
+
+toggle1 = false;
+toggle2 = true;
+toggle3 = false;
 
 // Change view to coordinates
 function toCity(latIntent, lonIntent, cityName){
     map.setView([parseFloat(latIntent), parseFloat(lonIntent)], 14);
     marker.setLatLng([parseFloat(latIntent), parseFloat(lonIntent)]);
 }
-
-toggle1 = false;
-toggle2 = true;
-toggle3 = false;
 
 // Toggle bplan WMS
 function toggleWMS1() {
@@ -109,6 +126,12 @@ function toggleBase() {
 // Call Toast in App
 function onMarkerClick() {
     Android.cityToast();
+}
+
+// Call Toast in App when Map Clicked
+function onMapClick(e) {
+    var toast = "Position: " + e.latlng.toString();
+	Android.positionToast(toast);
 }
 </script>
 </body>
